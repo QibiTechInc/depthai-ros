@@ -23,9 +23,9 @@ jobs:
     - name: Install dependencies
       run: |
         rosdep update
-        rosdep install --from-paths src --ignore-src -r -y
+        rosdep install --from-paths ./ --ignore-src -r -y
 
-    - name: Install nav2 dependencies
+    - name: Install ros2 dependencies
       run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai
 
     - name: Build Debian package
