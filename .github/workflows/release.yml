@@ -26,7 +26,7 @@ jobs:
         rosdep install --from-paths ./ --ignore-src -r -y
 
     - name: Install ros2 dependencies
-      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager ros-humble-camera-calibration ros-humble-foxglove-msgs ros-humble-rviz-imu-plugin ros-humble-cv-bridge
+      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager ros-humble-camera-calibration ros-humble-foxglove-msgs ros-humble-rviz-imu-plugin ros-humble-cv-bridge ros-humble-xacro
 
     - name: Verify current path
       run: |
@@ -47,7 +47,6 @@ jobs:
     - name: Build Debian package(3/7)
       run: |
         ls `pwd`/
-        ls `pwd`/../
         sudo dpkg -i `pwd`/*.deb
         cd `pwd`/depthai_examples
         bloom-generate rosdebian --ros-distro humble
@@ -55,8 +54,8 @@ jobs:
 
     - name: Build Debian package(4/7)
       run: |
-        ls `pwd`/../../
-        sudo dpkg -i `pwd`/../../*.deb
+        ls `pwd`/
+        sudo dpkg -i `pwd`/*.deb
         cd `pwd`/depthai_ros_driver
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
@@ -64,16 +63,16 @@ jobs:
 
     - name: Build Debian package(5/7)
       run: |
-        ls `pwd`/../../
-        sudo dpkg -i `pwd`/../../*.deb
+        ls `pwd`/
+        sudo dpkg -i `pwd`/*.deb
         cd `pwd`/depthai_bridge
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(6/7)
       run: |
-        ls `pwd`/../../
-        sudo dpkg -i `pwd`/../../*.deb
+        ls `pwd`/
+        sudo dpkg -i `pwd`/*.deb
         cd `pwd`/depthai_filters
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
@@ -86,18 +85,18 @@ jobs:
 
     - name: Verify Debian package
       run: |
-        find `pwd`/../*.deb -maxdepth 1
+        find `pwd`/*.deb -maxdepth 1
 
     - name: zip Debian packages
       run: |
-        zip ros-humble-depthai-ros.zip `pwd`/../*.deb
+        zip ros-humble-depthai-ros.zip `pwd`/*.deb
 
     - name: Upload Release Asset
       uses: actions/upload-artifact@v3
       with:
         name: ros-humble-depthai-ros
         path: |
-          /home/runner/work/depthai_ros/ros-humble-depthai-ros.zip
+          `pwd`/ros-humble-depthai-ros.zip
 
   release:
     needs: build
