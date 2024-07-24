@@ -26,7 +26,7 @@ jobs:
         rosdep install --from-paths ./ --ignore-src -r -y
 
     - name: Install ros2 dependencies
-      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai
+      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager
 
     - name: Verify current path
       run: |
