@@ -26,7 +26,7 @@ jobs:
         rosdep install --from-paths ./ --ignore-src -r -y
 
     - name: Install ros2 dependencies
-      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager
+      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager ros-humble-camera-calibration ros-humble-foxglove-msgs ros-humble-rviz-imu-plugin ros-humble-cv-bridge
 
     - name: Verify current path
       run: |
@@ -40,7 +40,7 @@ jobs:
 
     - name: Build Debian package(2/7)
       run: |
-        cd `pwd`/depthai_ros_driver
+        cd `pwd`/depthai_ros_msgs
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
@@ -52,9 +52,10 @@ jobs:
 
     - name: Build Debian package(4/7)
       run: |
-        cd `pwd`/depthai_ros_msgs
+        cd `pwd`/depthai_ros_driver
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
+
 
     - name: Build Debian package(5/7)
       run: |
