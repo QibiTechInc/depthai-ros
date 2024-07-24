@@ -34,43 +34,43 @@ jobs:
 
     - name: Build Debian package(1/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_descriptions
+        cd `pwd`/depthai_descriptions
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(2/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_ros_driver
+        cd `pwd`/depthai_ros_driver
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(3/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_examples
+        cd `pwd`/depthai_examples
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(4/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_ros_msgs
+        cd `pwd`/depthai_ros_msgs
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(5/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_bridge
+        cd `pwd`/depthai_bridge
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(6/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai_filters
+        cd `pwd`/depthai_filters
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(7/7)
       run: |
-        cd /home/runner/work/depthai_ros/depthai-ros
+        cd `pwd`/depthai-ros
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
