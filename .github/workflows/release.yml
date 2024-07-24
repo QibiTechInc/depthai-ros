@@ -26,7 +26,7 @@ jobs:
         rosdep install --from-paths ./ --ignore-src -r -y
 
     - name: Install ros2 dependencies
-      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager ros-humble-camera-calibration ros-humble-foxglove-msgs ros-humble-rviz-imu-plugin ros-humble-cv-bridge ros-humble-xacro ros-humble-depth-image-proc ros-humble-diagnostic-updater
+      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai ros-humble-camera-info-manager ros-humble-camera-calibration ros-humble-foxglove-msgs ros-humble-rviz-imu-plugin ros-humble-cv-bridge ros-humble-xacro ros-humble-depth-image-proc ros-humble-diagnostic-updater ros-humble-image-transport-plugins
 
     - name: Verify current path
       run: |
