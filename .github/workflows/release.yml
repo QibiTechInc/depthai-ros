@@ -28,6 +28,10 @@ jobs:
     - name: Install ros2 dependencies
       run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai
 
+    - name: Verify current path
+      run: |
+        ls `pwd`/
+
     - name: Build Debian package(1/7)
       run: |
         cd /home/runner/work/depthai_ros/depthai_descriptions
