@@ -1,0 +1,77 @@
+name: Generate Debian Package
+
+on:
+  push:
+    branches:
+      - humble-custom
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup ROS2 Humble
+      uses: ros-tooling/setup-ros@v0.7
+      with:
+        required-ros-distributions: humble
+
+    - name: Install bloom, etc
+      run: sudo apt-get update && sudo apt-get install -y python3-bloom dpkg-dev debhelper
+
+    - name: Install dependencies
+      run: |
+        rosdep update
+        rosdep install --from-paths src --ignore-src -r -y
+
+    - name: Install nav2 dependencies
+      run: sudo apt-get update && sudo apt-get install -y ros-humble-vision-msgs ros-humble-depthai
+
+    - name: Build Debian package
+      run: |
+        bloom-generate rosdebian --ros-distro humble
+        fakeroot debian/rules binary
+
+    - name: Verify Debian package
+      run: |
+        find `pwd`/../*.deb -maxdepth 1
+
+    - name: Upload Release Asset
+      uses: actions/upload-artifact@v3
+      with:
+        name: ros-humble-depthai-ros
+        path: |
+          /home/runner/work/depthai_ros/ros-humble-depthai-ros_0.1.0-0jammy_amd64.deb
+
+  release:
+    needs: build
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ros-humble-depthai-ros
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        body: Automatically generated release from GitHub Actions
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: /home/runner/work/depthai-ros/depthai-ros/ros-humble-depthai-ros_0.1.0-0jammy_amd64.deb
+        asset_name: ros-humble-depthai-ros.deb
+        asset_content_type: application/octet-stream
