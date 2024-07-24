@@ -46,14 +46,16 @@ jobs:
 
     - name: Build Debian package(3/7)
       run: |
-        sudo dpkg -i `pwd`/../*.deb
+        ls `pwd`/../../
+        sudo dpkg -i `pwd`/../../*.deb
         cd `pwd`/depthai_examples
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(4/7)
       run: |
-        sudo dpkg -i `pwd`/../*.deb
+        ls `pwd`/../../
+        sudo dpkg -i `pwd`/../../*.deb
         cd `pwd`/depthai_ros_driver
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
@@ -61,14 +63,16 @@ jobs:
 
     - name: Build Debian package(5/7)
       run: |
-        sudo dpkg -i `pwd`/../*.deb
+        ls `pwd`/../../
+        sudo dpkg -i `pwd`/../../*.deb
         cd `pwd`/depthai_bridge
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
 
     - name: Build Debian package(6/7)
       run: |
-        sudo dpkg -i `pwd`/../*.deb
+        ls `pwd`/../../
+        sudo dpkg -i `pwd`/../../*.deb
         cd `pwd`/depthai_filters
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
