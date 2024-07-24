@@ -46,8 +46,9 @@ jobs:
 
     - name: Build Debian package(3/7)
       run: |
-        ls `pwd`/../../
-        sudo dpkg -i `pwd`/../../*.deb
+        ls `pwd`/
+        ls `pwd`/../
+        sudo dpkg -i `pwd`/*.deb
         cd `pwd`/depthai_examples
         bloom-generate rosdebian --ros-distro humble
         fakeroot debian/rules binary
