@@ -106,7 +106,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: ros-humble-depthai-ros
+        name: ros-humble-depthai-ros.zip
 
     - name: Create Release
       id: create_release
@@ -126,6 +126,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: /home/runner/work/depthai_ros/ros-humble-depthai-ros.zip
+        asset_path: `pwd`/ros-humble-depthai-ros.zip
         asset_name: ros-humble-depthai-ros.zip
         asset_content_type: application/octet-stream
