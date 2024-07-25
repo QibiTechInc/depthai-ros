@@ -90,6 +90,7 @@ jobs:
     - name: zip Debian packages
       run: |
         zip `pwd`/ros-humble-depthai-ros.zip `pwd`/*.deb
+        find `pwd`/* -maxdepth 1
 
     - name: Upload Release Asset
       uses: actions/upload-artifact@v3
