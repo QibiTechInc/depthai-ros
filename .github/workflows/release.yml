@@ -89,7 +89,7 @@ jobs:
 
     - name: zip Debian packages
       run: |
-        zip ros-humble-depthai-ros.zip `pwd`/*.deb
+        zip `pwd`/ros-humble-depthai-ros.zip `pwd`/*.deb
 
     - name: Upload Release Asset
       uses: actions/upload-artifact@v3
@@ -126,6 +126,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: `pwd`/ros-humble-depthai-ros.zip
+        asset_path: /home/runner/work/depthai-ros/depthai-ros/ros-humble-depthai-ros.zip
         asset_name: ros-humble-depthai-ros.zip
         asset_content_type: application/octet-stream
