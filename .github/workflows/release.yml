@@ -97,7 +97,7 @@ jobs:
       with:
         name: ros-humble-depthai-ros
         path: |
-          `pwd`/ros-humble-depthai-ros.zip
+          /home/runner/work/depthai-ros/depthai-ros/ros-humble-depthai-ros.zip
 
   release:
     needs: build
@@ -107,7 +107,7 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: ros-humble-depthai-ros.zip
+        name: ros-humble-depthai-ros
 
     - name: Create Release
       id: create_release
