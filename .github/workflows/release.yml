@@ -89,7 +89,7 @@ jobs:
 
     - name: zip Debian packages
       run: |
-        zip `pwd`/ros-humble-depthai-ros.zip `pwd`/*.deb
+        zip ros-humble-depthai-ros.zip *.deb
         find `pwd`/* -maxdepth 1
 
     - name: Upload Release Asset
